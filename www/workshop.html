@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.0/firebase-database.js"></script>
+  <script>
+    // Initialize Firebase
+    var firebaseConfig = {
+    apiKey: "AIzaSyDuiQ5Zo7vSjELyU55yqZ4wXadtFwxND40",
+    authDomain: "assg-4d719.firebaseapp.com",
+    databaseURL: "https://assg-4d719-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "assg-4d719",
+    storageBucket: "assg-4d719.appspot.com",
+    messagingSenderId: "1039248372895",
+    appId: "1:1039248372895:web:7abfe8a0e51c5b766b1eaa",
+  };
+    firebase.initializeApp(firebaseConfig);
+
+    // Get a reference to the database service
+    var database = firebase.database();
+
+    // Function to handle form submission
+    function submitForm(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      // Get form values
+      var date = document.getElementById('date').value;
+      var time = document.getElementById('time').value;
+      var name = document.getElementById('name').value;
+      var email = document.getElementById('email').value;
+
+      // Push data to the database
+      database.ref('users').push({
+        date: date,
+        time: time,
+        name: name,
+        email: email
+      });
+
+      // Reset form fields
+      document.getElementById('date').value = '';
+      document.getElementById('time').value = '';
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+    }
+  </script>
+  <title>Appointment Booking</title>
+  <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+
+<body>
+  <h1>Appointment Booking</h1>
+  <form onsubmit="submitForm(event)">
+  <div id="bookingForm">
+    <h2>Book an Appointment</h2>
+    <label for="date">Select Date:</label>
+    <input type="date" id="date" required>
+    <br>
+    <label for="time">Select Time:</label>
+    <input type="time" id="time" required>
+    <br>
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+    <br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" required>
+    <br>
+    <button type="submit" onclick="bookAppointment()">Book Now</button>
+  </div>
+
+  <div id="confirmation" style="display: none;">
+    <h2>Appointment Booked Successfully!</h2>
+    <p id="appointmentDetails"></p>
+    <p id="purchaseLink"></p>
+  </div>
+  </form>
+  <script src="js/index.js"></script>
+</body>
+<footer>
+  <p>&copy; 2023 Car Workshop Service</p>
+</footer>
+</html>
